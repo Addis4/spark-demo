@@ -1,20 +1,24 @@
 package com.knoldus
 
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.sql.SparkSession
+
 
 object DemoOne {
-  def main(args: Array[String]) {
-    println("Something Atleast1")
-    val conf = new SparkConf().setMaster("local").setAppName("SparkWordCount")
-    println("Something Atleast2")
-    val sc = new SparkContext(conf)
-    println("Something Atleast3")
-    val rdd1 = sc.makeRDD(Array(1,2,3,4,5,6,7))
 
-    println("Something Atleast4")
-    rdd1.collect().foreach(println)
-    println("Something Atleast5")
-    println("Something Atleast6")
+  def main(args: Array[String]) {
+
+    Logger.getLogger("org").setLevel(Level.OFF)
+
+
+    val spark = SparkSession.builder.appName("Simple Application").master("local").config("spark.executor.instances","2").getOrCreate()
+    val logFile = "build.sbt" // Should be some file on your system
+    val logData = spark.read.textFile(logFile).cache()
+    val numAs = logData.filter(line => line.contains("a")).count()
+    val numBs = logData.filter(line => line.contains("b")).count()
+    println(s"Lines with a: $numAs,\n Lines with b: $numBs")
+    spark.stop()
+
   }
 
 

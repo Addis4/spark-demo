@@ -3,6 +3,7 @@ package com.knoldus
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{Seconds, StreamingContext}
+//import org.apache.spark.streaming.{Seconds, StreamingContext}
 
 object StreamingDemo  {
   def main(args: Array[String]) {
