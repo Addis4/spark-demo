@@ -31,17 +31,6 @@ object JSONDemo {
    dataF.printSchema()
 
 
-//    val schemaString: StructType = new StructType()
-//      .add("id", IntegerType)
-//      .add("firstname", StringType)
-//
-//    val ds: DataFrame = dataF
-//      .select(from_json(col("value"), schemaString).as("data"))
-//      .select("data.*").where("id > 2")
-//
-//    val test  = dataF
-//    ds.show()
-//    ds.printSchema()
     case class User(id: Int, firstname: String)
     implicit val userWrites: Writes[User] = new Writes[User] {
       def writes(user: User): JsValue = Json.obj(
@@ -52,15 +41,6 @@ object JSONDemo {
     val json: Enumeratee[User, JsValue] = Json.toJson(userWrites)
 
     val lat = (json \ "user" \ "id" ).get
-
-//    case class User(id: Int, firstname: String)
-//    implicit val userReads: Reads[User] = (
-//      (JsPath \ "id").read[Int] and
-//        (JsPath \ "firstname").read[String]
-//      )(User.apply _)
-//    val json = { }
-//
-//    val userResult: JsResult[User] = json.validate[User]
 
 
   }
