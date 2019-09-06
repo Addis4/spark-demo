@@ -11,6 +11,4 @@ class DemoSessionSpec extends FlatSpec{
       DemoSession.addition(2,4) == 6
     }
   }
-  //assert(DemoSession.addition(2,5)== 3,"It should not happen")
-
 }
